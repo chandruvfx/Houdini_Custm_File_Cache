@@ -7,11 +7,15 @@
 #
 # The fae file cache dump all the bgeo/abc cache versions into the user specified directory with a user comments file.
 # Artist interactively navigate to any versions of the formate overwrite the comments or even the 
-# exciting cache.
+# exciting cache. If a user entered overflowed version number as latest version, 
+# then HDA automatically rollbacked to the available latest version. 
 #
 # Loading:
 #
-# 
+# Utility Push buttons provide good control for artist to jump into versions. It interactively updates
+# the comment section and current viewport respectively.
+#
+#
 import os
 import re
 import hou
