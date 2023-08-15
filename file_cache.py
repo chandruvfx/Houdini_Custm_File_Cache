@@ -1,3 +1,6 @@
+# A custom file cache HDA having extended features including automatically version's up to a latest version
+# support switching to different formats, allows to incorporating user comments and facilatates to
+# submit the file caching to the deadline submitter.
 import os
 import re
 import hou
