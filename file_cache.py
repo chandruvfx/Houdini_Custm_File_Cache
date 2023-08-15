@@ -1,6 +1,17 @@
 # A custom file cache HDA having extended features including automatically version's up to a latest version
 # support switching to different formats, allows to incorporating user comments and facilatates to
 # submit the file caching to the deadline submitter.
+#
+# The HDA Work as two-in-one purpose. Supportd both of file caching and loading. 
+# Writing(Local or Renderfarm submission):
+#
+# The fae file cache dump all the bgeo/abc cache versions into the user specified directory with a user comments file.
+# Artist interactively navigate to any versions of the formate overwrite the comments or even the 
+# exciting cache.
+#
+# Loading:
+#
+# 
 import os
 import re
 import hou
