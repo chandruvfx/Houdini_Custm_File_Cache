@@ -24,6 +24,8 @@ import subprocess
 
 
 def version_up(cur_node: hou.Node) -> None:
+
+    """ Increment one version up and pull the comments if exist any """
     
     current_version = cur_node.parm("version").eval()
     cur_node.parm("version").set(current_version+1)
@@ -31,12 +33,21 @@ def version_up(cur_node: hou.Node) -> None:
 
     
 def version_down(cur_node: hou.Node) -> None:
+
+     """ Decrement one version down and pull the comments if exist any """
     
     current_version = cur_node.parm("version").eval()
     cur_node.parm("version").set(current_version-1)
     manip_comment_file(cur_node, w_verbose = False)
 
 def load_cache(cur_node: hou.Node) -> None:
+
+    """Move The user loaded cache to latest version
+
+    User selected cache from the drop down menu name updated
+    into the cache_name parameter and the version is moved to the 
+    latest number.
+    """
     
     sel_cache_name = cur_node.parm("suggested_cache_name").evalAsString()
     cur_node.parm("cache_name").set(sel_cache_name)
