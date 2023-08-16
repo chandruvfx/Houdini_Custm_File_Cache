@@ -93,7 +93,8 @@ def move_latest_version(cur_node: hou.Node,
     """Move Version Silder to latest version of the cache
 
     Traverse to cache folder and retrive files and determine the 
-    maximum number of the cache file
+    maximum number of the cache file. also retrive the the comments 
+    of the respective version of the cache file.
     """
     
     bgeo_cached_disk_versions = []
@@ -136,8 +137,10 @@ def move_latest_version(cur_node: hou.Node,
         
     elif bgeo_val_return:
         if bgeo_cached_disk_versions:
+            # Returns the maximum number of the cached version
             return cache_name, bge_ext, max(bgeo_cached_disk_versions)
         else:
+            # Return zero if no cached version found
             return cache_name, bge_ext, 0
 
     elif abc_val_return:
