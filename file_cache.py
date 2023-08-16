@@ -94,7 +94,8 @@ def move_latest_version(cur_node: hou.Node,
 
     Traverse to cache folder and retrive files and determine the 
     maximum number of the cache file. also retrive the the comments 
-    of the respective version of the cache file.
+    of the respective version of the cache file and set it in the 
+    Comments parameters.
 
     Args:
         abc_val_return (bool): Returns the latest alembic cache version
@@ -156,7 +157,14 @@ def move_latest_version(cur_node: hou.Node,
             return cache_name, abc_ext, 0
 
         
-def save_file():
+def save_file() -> bool:
+
+    """Save Houdini File
+
+    If the houdini file is not saved the it lure the artist to save it by 
+    poping up the message box. If the recent file operations not saved by 
+    user manually then it saved automatically
+    """
     
     if hou.hipFile.isNewFile():
         hou.ui.displayMessage( "Please Save the File through Shotgrid before submitting the job", buttons=( "Ok", ), title="Submit Houdini To Deadline" )
@@ -165,7 +173,7 @@ def save_file():
         hou.hipFile.save()
         return True
 
-def trigger_parms(cur_node):
+def trigger_parms(cur_node) -> None:
 
     auto_change_abc_chunksize(cur_node)
     move_latest_version(cur_node)        
