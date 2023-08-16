@@ -174,13 +174,25 @@ def save_file() -> bool:
         return True
 
 def trigger_parms(cur_node) -> None:
-
+    
+    """ 
+    Triggers various operation if formate is changed by the 
+    user from the drop down
+    """
+    
     auto_change_abc_chunksize(cur_node)
     move_latest_version(cur_node)        
     manip_comment_file(cur_node, w_verbose = False)
     pass
  
 def auto_change_abc_chunksize(cur_node: hou.Node) -> None:
+
+    """Setting deadline chunksize for abc formate
+
+    Alembic formate submission need to be happen in one machine.
+    as so the number of frame numbers setted as chunk size else
+    it setted to a default value 10
+    """
     
     if cur_node.parm("formate_type").rawValue() == ".abc":
         cur_node.parm('dl_chunksize').setExpression('ch("sei2")')
