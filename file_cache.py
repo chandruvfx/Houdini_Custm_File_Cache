@@ -56,6 +56,12 @@ def load_cache(cur_node: hou.Node) -> None:
 def save_disk(cur_node: hou.Node, bg = False) -> None:
 
     """ Saving Cache in to Disk 
+
+    Collect user entered formate type and version. check the version is 
+    next recent available version. Example: if version 4 bgeo.sc is latest cache for 
+    man1 charecter, then it move the version to 5. 
+    Create the respective ROP nodes if it matches for bgeo or alembic, 
+    Write comments and cache from the machine
     
     Args:
         bg (bool): If set false it switched to a background process mode
@@ -83,9 +89,13 @@ def save_disk(cur_node: hou.Node, bg = False) -> None:
         
 def move_latest_version(cur_node: hou.Node, 
                     abc_val_return = False,
-                    bgeo_val_return = False) -> None:
-    
+                    bgeo_val_return = False) -> str, str, None:
+    """Move Version Silder to latest version of the cache
 
+    Traverse to cache folder and retrive files and determine the 
+    maximum number of the cache file
+    """
+    
     bgeo_cached_disk_versions = []
     abc_cached_disk_versions = []
     bgeo_version_no = 0
