@@ -89,12 +89,18 @@ def save_disk(cur_node: hou.Node, bg = False) -> None:
         
 def move_latest_version(cur_node: hou.Node, 
                     abc_val_return = False,
-                    bgeo_val_return = False) -> str, str, None:
+                    bgeo_val_return = False) -> tuple(str, str, int):
     """Move Version Silder to latest version of the cache
 
     Traverse to cache folder and retrive files and determine the 
     maximum number of the cache file. also retrive the the comments 
     of the respective version of the cache file.
+
+    Args:
+        abc_val_return (bool): Returns the latest alembic cache version
+                            of the specific version from the given location
+        bgeo_val_return (bool): Returns the latest bgeo.sc cache version
+                            of the specific version from the given location
     """
     
     bgeo_cached_disk_versions = []
