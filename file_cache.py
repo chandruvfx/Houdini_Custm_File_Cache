@@ -54,7 +54,14 @@ def load_cache(cur_node: hou.Node) -> None:
     move_latest_version(cur_node)
 
 def save_disk(cur_node: hou.Node, bg = False) -> None:
+
+    """ Saving Cache in to Disk 
     
+    Args:
+        bg (bool): If set false it switched to a background process mode
+        else it do as normal
+    """
+        
     cache_folder_path = cur_node.parm("cache_folder_path").evalAsString().replace(os.sep, "/")
     formate_type = cur_node.parm("formate_type").rawValue()
     user_ver = cur_node.parm("version").eval()
