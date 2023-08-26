@@ -133,12 +133,15 @@ def move_latest_version(cur_node: hou.Node,
                     abc_cached_disk_versions.append(abc_version_no)
     
 
-    if bgeo_cached_disk_versions and formate_type == bge_ext and not bgeo_val_return and not abc_val_return:
+    if bgeo_cached_disk_versions and formate_type == bge_ext and \
+                        not bgeo_val_return and not abc_val_return:
+                            
         cur_node.parm("version").set(max(bgeo_cached_disk_versions)) 
         manip_comment_file(cur_node, w_verbose = False)
 
             
-    elif abc_cached_disk_versions and formate_type == abc_ext and not abc_val_return and not bgeo_val_return:
+    elif abc_cached_disk_versions and formate_type == abc_ext \
+                        and not abc_val_return and not bgeo_val_return:
         cur_node.parm("version").set(max(abc_cached_disk_versions))
         manip_comment_file(cur_node, w_verbose = False)
         
@@ -220,7 +223,7 @@ def create_sop_cache(cur_node, cache_folder_path, job_name, formate_type):
     frame_range_type = cur_node.parm("trange").rawValue()
     
     
-    def set_frame_range_params(cache_node):
+    def set_frame_range_params(cache_node) -> tuple(hou.Node, str):
 
         """ Set Frame Range Parameters on the HDA"""
         
@@ -230,11 +233,13 @@ def create_sop_cache(cur_node, cache_folder_path, job_name, formate_type):
             cache_node.parm('f2').setExpression('ch("/obj/%s/%s/sei2")' %(obj_geo_node_name, cur_node.name()))
             cache_node.parm('f3').setExpression('ch("/obj/%s/%s/sei3")' %(obj_geo_node_name, cur_node.name()))
             
-        elif frame_range_type == 'single_range' and not cur_node.parm('useframeoverride').eval():
+        elif frame_range_type == 'single_range' and \
+                    not cur_node.parm('useframeoverride').eval():
         
             cache_node.parm('trange').set(0)
         
-        elif frame_range_type == 'single_frame' and cur_node.parm('useframeoverride').eval():
+        elif frame_range_type == 'single_frame' and \
+                    cur_node.parm('useframeoverride').eval():
         
             cache_node.parm('trange').set(1)
             cache_node.parm('f1').setExpression('ch("/obj/%s/%s/frameoverride")' %(obj_geo_node_name, cur_node.name()))
@@ -286,7 +291,17 @@ def create_sop_cache(cur_node, cache_folder_path, job_name, formate_type):
         return abc_cache_node, full_path
         
     
-def manip_comment_file(cur_node: hou.Node, w_verbose = False) -> None:   
+def manip_comment_file(cur_node: hou.Node, w_verbose = False) -> None:
+
+    """Comment File Operations
+
+    Generate the cache file in the same folder where the bgeo/abc
+    Caches lies. Based upon the verbose this funtion either return
+    or write the file
+
+    Args:
+        w_verbose (bool) : True or False 
+    """
     
     comments = cur_node.parm("comments").evalAsString()
     cache_folder_path = cur_node.parm("cache_folder_path").evalAsString().replace(os.sep, "/")
@@ -315,11 +330,22 @@ def manip_comment_file(cur_node: hou.Node, w_verbose = False) -> None:
         except FileNotFoundError:
                 pass
    
-def version_parm_manipulation(cur_node: hou.Node, formate_type, user_ver):
+def version_parm_manipulation(cur_node: hou.Node, 
+                              formate_type, user_ver):
+                                  
+    """Adjust Version Slider to latest
 
+    Check the user inputed version with the available maximum version
+    If it exceed the maximum then throw user information and revert 
+    silder to a verion, wwhich is maximum + 1
+
+    Args:
+        formate_type (str): User selected format.
+        user_ver(int) : User inputed version
+    """
+                                  
     if formate_type == ".bgeo.sc":
         bgeo_max_infos = move_latest_version(cur_node, bgeo_val_return = True)
-        # print(bgeo_max_infos)
         if bgeo_max_infos and bgeo_max_infos[-1] != 0:
             bgeo_max_ver = bgeo_max_infos[-1]
             if (bgeo_max_ver + 1) < user_ver:
