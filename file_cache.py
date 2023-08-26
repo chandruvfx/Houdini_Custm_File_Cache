@@ -201,13 +201,29 @@ def auto_change_abc_chunksize(cur_node: hou.Node) -> None:
         cur_node.parm('dl_chunksize').set(10)
         
 def create_sop_cache(cur_node, cache_folder_path, job_name, formate_type):
+
+    """Create rop geometry node based on formate selected by user 
+
+    If user selected bgeo the rop_geometry created and updated with
+    all the necessary settings. Same applicable to alembic too. 
+    It first check whether the already created rop node connected to 
+    the file_cache HDA. if it does it leave as it is else it create one
+
+    Args:
+        cache_folder_path (str): folder path where the cache file gonna
+                                 dumped
+        job_name (str) : job_name from usr input
+        formate_type (str): user selcted format type
+    """
     
     obj_geo_node_name = cur_node.parent().name()
     frame_range_type = cur_node.parm("trange").rawValue()
     
     
     def set_frame_range_params(cache_node):
-    
+
+        """ Set Frame Range Parameters on the HDA"""
+        
         if frame_range_type == 'frame_range':
             cache_node.parm('trange').set(1)
             cache_node.parm('f1').setExpression('ch("/obj/%s/%s/sei1")' %(obj_geo_node_name, cur_node.name()))
