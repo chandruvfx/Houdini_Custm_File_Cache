@@ -293,7 +293,7 @@ def create_sop_cache(cur_node, cache_folder_path, job_name, formate_type):
     
 def manip_comment_file(cur_node: hou.Node, w_verbose = False) -> None:
 
-    """Comment File Operations
+    """Comment File Operations (Read/Write)
 
     Generate the cache file in the same folder where the bgeo/abc
     Caches lies. Based upon the verbose this funtion either return
@@ -369,6 +369,9 @@ def version_parm_manipulation(cur_node: hou.Node,
 def SubmitToDeadline(cur_node: hou.Node,
                      display_ui=False) -> None:
 
+    """Master Function For Deadline Job Submission 
+
+    """
     cache_folder_path = cur_node.parm("cache_folder_path").evalAsString().replace(os.sep, "/")
     formate_type = cur_node.parm("formate_type").rawValue()
     user_ver = cur_node.parm("version").eval()
