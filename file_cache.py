@@ -3,9 +3,10 @@
 # submit the file caching to the deadline submitter.
 #
 # The HDA Work as two-in-one purpose. Supportd both of file caching and loading. 
+#
 # Writing(Local or Renderfarm submission):
 #
-# The fae file cache dump all the bgeo/abc cache versions into the user specified directory with a user comments file.
+# The fae file cache dump all the bgeo/abc cache versions into the user specified directory with the user comments file.
 # Artist interactively navigate to any versions of the formate overwrite the comments or even the 
 # exciting cache. If a user entered overflowed version number as latest version, 
 # then HDA automatically rollbacked to the available latest version. 
