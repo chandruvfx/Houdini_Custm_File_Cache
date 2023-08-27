@@ -367,10 +367,18 @@ def version_parm_manipulation(cur_node: hou.Node,
 
     
 def SubmitToDeadline(cur_node: hou.Node,
-                     display_ui=False) -> None:
+                     display_ui=False) -> None or list(str, str):
 
     """Master Function For Deadline Job Submission 
 
+    Create two job text files. One plugin_info.job and job_info.job
+    file. Fill all the houdini related necessary informations in the files.
+    Execute the files from the Deadline command line renderer.
+
+    Args:
+        display_ui (bool): A verbose triggered from the push button
+                           of the HDA determines the whether to show the 
+                           information GUI or the plugin and jobid file paths
     """
     cache_folder_path = cur_node.parm("cache_folder_path").evalAsString().replace(os.sep, "/")
     formate_type = cur_node.parm("formate_type").rawValue()
@@ -416,6 +424,8 @@ def SubmitToDeadline(cur_node: hou.Node,
     deadline_files = []    
     
     def write_job_file(filename, data):
+
+        """ Carrying out Write JOb Operations"""
         
         dl_job_dir =  "Y:/pipeline/studio/temp/" + \
                       hou.userName() + \
@@ -433,7 +443,9 @@ def SubmitToDeadline(cur_node: hou.Node,
         return job_file
    
     def file_job_info():
-    
+
+        """ Create the Job file info file"""
+        
         dl_job_info = {
             "BatchName": hou.hipFile.basename(),
             "Name": job_name + "_" + formate_type.split(".",1)[-1],
@@ -451,7 +463,9 @@ def SubmitToDeadline(cur_node: hou.Node,
         return job_info_file
         
     def plugin_job_info():
-    
+
+        """ Creater the Plugin info Job file"""
+        
         dl_plugin_job_info = {
             "Output": full_path,
             "OutputDriver": "%s" %cache_node.path(),
@@ -482,6 +496,9 @@ def SubmitToDeadline(cur_node: hou.Node,
             dl_path = dl_path.replace(r"/", "//") + "//deadlinecommand.exe"
             dl_path = '"%s"' %dl_path
             dl_command = '%s %s' %(dl_path, " ".join(deadline_files))
+
+            # Processs execute the deadline command with the job files 
+            # inputed with them 
             result = subprocess.run(dl_command, 
                                     stdout=subprocess.PIPE, 
                                     shell=True,
