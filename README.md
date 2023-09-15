@@ -67,7 +67,27 @@ On reading aka enabling 'load_on_disk', It pull the appropriate version comments
 ![filecache_localsubmission](https://github.com/chandruvfx/Houdini_Custom_File_Cache/assets/45536998/a84dea90-b234-4576-9a4e-c4c7b1824c40)
 
  Mirrored houdini native local file caching options.
- 
+
+### Deadline Submission
+
+![filecache_deadline](https://github.com/chandruvfx/Houdini_Custom_File_Cache/assets/45536998/50b17643-4cc8-4146-b2e0-c3e6a44e3f68)
+
+The Tab Contains all the necessary fields to shoot up the deadline job. Bgeo and abc(alembic) caches happen in the farm. For now, the alembic(abc) caches were limited to happen in only one machine in the farm, cause all the frames were gonna dumped into a single file..
+
+- Job Name - Deadline job name. Default it is the cachename plus version name. Artist can enter his own prefered name
+- Comment - Valid textual deadline comments
+- Pool & Secondary pool - Drop-Down consist of deadline pools.
+- Group - Deadline Groups
+- Priority - Determine Deadline Priority
+- Frames-Per-Task - Determine Chunk size aka the split of frame ranges into the machines
+- Submit To Deadline - Push button collects all the deadline parameters values and submit into the deadline farm
+- 
+If the job is submitted sucessfully then the below message with deadline job id appears!!
+
+![filecache_jobid](https://github.com/chandruvfx/Houdini_Custom_File_Cache/assets/45536998/c2050343-267a-4ede-95d3-10882e9274f8)
+
+## Demo Video 
+
 :point_down: [Youtube Link]
  
 [![Houdini Dependency Cache Submitter](https://img.youtube.com/vi/SPw6o7h5O-M/0.jpg)](https://youtu.be/SPw6o7h5O-M)
