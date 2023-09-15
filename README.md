@@ -22,7 +22,6 @@ FA file caching HDA is a sop context multipurpose custom file caching in-house t
 
 ### Load From Disk
 
-![filecache5](https://github.com/chandruvfx/Houdini_Custom_File_Cache/assets/45536998/9403e943-8523-436b-b53a-7712cf8fd3ef)
  The Check Box make the HDA a dual purpose tool. If it is switched on it loads the cache from the given cache folder path and cache name.
 
 ### Cache Folder Path
